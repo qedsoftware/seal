@@ -151,6 +151,8 @@ def main(argv):
     # default output image format == input image format
     if not format_flag:
         format = ext[1:]
+        if format.lower() == "jpg":
+            format = "jpeg"
 
     # open input image
     im = Image.open(input_filename)
