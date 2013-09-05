@@ -3,7 +3,7 @@
 # <william.wu@themathpath.com>
 
 import Image, ImageDraw, ImageFont, ImageEnhance
-import sys, os, subprocess, getopt, hashlib, time, numpy
+import sys, os, getopt 
 
 # usage
 def usage():
