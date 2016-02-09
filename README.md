@@ -1,5 +1,7 @@
 DESCRIPTION
 ===============
-Python script for watermarking images. 
+Python script for watermarking images.
 Modified from ActiveState tutorials.
-- W.Wu
+
+---
+QED | http://qed.ai

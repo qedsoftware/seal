@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-# William Wu, 2013-08-12
-# <william.wu@themathpath.com>
+# w@qed.ai
 
 import Image, ImageDraw, ImageFont, ImageEnhance
 import sys, os, getopt 
