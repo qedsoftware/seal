@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import yinzhang
+import seal
 import os
 import argparse
 
@@ -19,7 +19,7 @@ if args.inverse:
 else:
     logos_dict = {"LR": "qed-logo.png"}
 
-seal = yinzhang.Yinzhang()
+sealer = seal.Seal()
 base, ext = os.path.splitext(os.path.basename(args.filename))
 out_fname = base + args.suffix + ext
-seal.add_logos(args.filename, out_fname, logos_dict)
+sealer.add_logos(args.filename, out_fname, logos_dict)
