@@ -22,12 +22,14 @@ parser.add_argument("-i", "--inverse", help="invert logo",
 parser.add_argument("-o", "--output", type=str, help="output file name")
 parser.add_argument("--logo", type=str,
                     help="logo file name", default="qed-logo.png")
+parser.add_argument("--position", type=str,
+                    help="logo position (LR, LL, UR, UL)", default="LR")
 args = parser.parse_args()
 
 if args.inverse:
-    logos_dict = {"LR": insert_suffix(args.logo, "-rev")}
+    logos_dict = {args.position: insert_suffix(args.logo, "-rev")}
 else:
-    logos_dict = {"LR": args.logo}
+    logos_dict = {args.position: args.logo}
 
 sealer = seal.Seal()
 
