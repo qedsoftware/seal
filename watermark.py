@@ -2,6 +2,7 @@
 import seal
 import os
 import argparse
+import glob
 
 
 parser = argparse.ArgumentParser()
@@ -21,10 +22,13 @@ else:
     logos_dict = {"LR": "qed-logo.png"}
 
 sealer = seal.Seal()
-base, ext = os.path.splitext(os.path.basename(args.filename))
-directory = os.path.dirname(args.filename)
-out_fname = directory + ("" if len(directory) ==
-                         0 else "/") + base + args.suffix + ext
-if args.output:
-    out_fname = args.output
-sealer.add_logos(args.filename, out_fname, logos_dict)
+
+for filename in glob.glob(args.filename):
+    base, ext = os.path.splitext(os.path.basename(filename))
+    directory = os.path.dirname(filename)
+    out_fname = directory + ("" if len(directory) ==
+                             0 else "/") + base + args.suffix + ext
+    if args.output:
+        out_fname = args.output
+
+    sealer.add_logos(filename, out_fname, logos_dict)
