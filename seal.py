@@ -7,7 +7,7 @@ class Seal:
     def __init__(self):
         return
 
-    def add_logos(self, main_fname, out_fname, logos_dict):
+    def add_logos(self, main_fname, out_fname, logos_dict, opacity=1.0):
         """
         Add logos to an image.
         Logos are expected to be in PNG format to support transparency masks.
@@ -44,6 +44,7 @@ class Seal:
                 offset = (padding, padding)
             elif pos == "UR":
                 offset = (main_w - logo_w_new - padding, padding)
+            logo = Image.blend(Image.new(logo.mode, logo.size), logo, opacity)
             main.paste(logo, offset, logo)
 
         main.save(out_fname)

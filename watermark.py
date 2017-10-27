@@ -24,6 +24,8 @@ parser.add_argument("--logo", type=str,
                     help="logo file name", default="qed-logo.png")
 parser.add_argument("--position", type=str,
                     help="logo position (LR, LL, UR, UL)", default="LR")
+parser.add_argument("--opacity", type=float,
+                    help="logo opacity (0.0 - 1.0)", default=1.0)
 args = parser.parse_args()
 
 if args.inverse:
@@ -36,4 +38,4 @@ sealer = seal.Seal()
 for filename in glob.glob(os.path.expandvars(os.path.expanduser(args.filename))):
     print(insert_suffix(filename, args.suffix))
     sealer.add_logos(filename, args.output if args.output else insert_suffix(
-        filename, args.suffix), logos_dict)
+        filename, args.suffix), logos_dict, args.opacity)
