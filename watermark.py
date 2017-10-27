@@ -33,7 +33,7 @@ else:
 
 sealer = seal.Seal()
 
-for filename in glob.glob(args.filename):
+for filename in glob.glob(os.path.expandvars(os.path.expanduser(args.filename))):
     print(insert_suffix(filename, args.suffix))
     sealer.add_logos(filename, args.output if args.output else insert_suffix(
         filename, args.suffix), logos_dict)
