@@ -5,6 +5,13 @@ import argparse
 import glob
 
 
+def insert_suffix(path, suffix):
+    base, ext = os.path.splitext(os.path.basename(path))
+    directory = os.path.dirname(path)
+    return directory + ("" if len(directory) ==
+                        0 else "/") + base + suffix + ext
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", type=str,
                     help="input image filename")
@@ -13,22 +20,18 @@ parser.add_argument("-s", "--suffix", type=str,
 parser.add_argument("-i", "--inverse", help="invert logo",
                     action="store_true")
 parser.add_argument("-o", "--output", type=str, help="output file name")
+parser.add_argument("--logo", type=str,
+                    help="logo file name", default="qed-logo.png")
 args = parser.parse_args()
 
-
 if args.inverse:
-    logos_dict = {"LR": "qed-logo-rev.png"}
+    logos_dict = {"LR": insert_suffix(args.logo, "-rev")}
 else:
-    logos_dict = {"LR": "qed-logo.png"}
+    logos_dict = {"LR": args.logo}
 
 sealer = seal.Seal()
 
 for filename in glob.glob(args.filename):
-    base, ext = os.path.splitext(os.path.basename(filename))
-    directory = os.path.dirname(filename)
-    out_fname = directory + ("" if len(directory) ==
-                             0 else "/") + base + args.suffix + ext
-    if args.output:
-        out_fname = args.output
-
-    sealer.add_logos(filename, out_fname, logos_dict)
+    print(insert_suffix(filename, args.suffix))
+    sealer.add_logos(filename, args.output if args.output else insert_suffix(
+        filename, args.suffix), logos_dict)
