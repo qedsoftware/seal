@@ -12,6 +12,8 @@ def insert_suffix(path, suffix):
                         0 else "/") + base + suffix + ext
 
 
+default_logo = "watermark/qed-logo.png"
+
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", type=str,
                     help="input image filename")
@@ -19,9 +21,12 @@ parser.add_argument("-s", "--suffix", type=str,
                     help="suffix for output image", default="_qed")
 parser.add_argument("-i", "--inverse", help="invert logo",
                     action="store_true")
+parser.add_argument("--byline", help="byline logo", action="store_true")
+parser.add_argument("--monochrome", help="one color logo", action="store_true")
+parser.add_argument("--square", help="use square logo", action="store_true")
 parser.add_argument("-o", "--output", type=str, help="output file name")
 parser.add_argument("--logo", type=str,
-                    help="logo file name", default="qed-logo.png")
+                    help="logo file name", default=default_logo)
 parser.add_argument("--position", type=str,
                     help="logo position (LR, LL, UR, UL)", default="LR")
 parser.add_argument("--opacity", type=float,
@@ -30,10 +35,22 @@ parser.add_argument("--filter", type=str,
                     help="logo filter (positive, negative, dark, white)", default="positive")
 args = parser.parse_args()
 
-if args.inverse:
-    logos_dict = {args.position: insert_suffix(args.logo, "-rev")}
-else:
-    logos_dict = {args.position: args.logo}
+logo = args.logo
+
+if logo == default_logo:
+    if args.square:
+        logo = insert_suffix(logo, "-square")
+
+    if args.byline:
+        logo = insert_suffix(logo, "-byline")
+
+    if args.monochrome:
+        logo = insert_suffix(logo, "-1c")
+
+    if args.inverse:
+        logo = insert_suffix(logo, "-rev")
+
+logos_dict = {args.position: logo}
 
 sealer = seal.Seal()
 
