@@ -3,10 +3,10 @@ from setuptools import setup, find_packages
 setup(
     name = "qed-seal",
     version = "0.1",
-    description = "QED watermarking tool",
+    description = "image watermarking tool",
     url = "https://github.com/qed-software/seal",
-    author = "Paweł Wegner",
-    author_email = "pa0@qed.ai",
+    author = "QED",
+    author_email = "software@qed.ai",
     license = "MIT",
     classifiers = [
         "Programming Language :: Python :: 3"
