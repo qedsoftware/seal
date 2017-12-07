@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--byline", help="byline logo", action="store_true")
     parser.add_argument(
         "--monochrome", help="one color logo", action="store_true")
-    parser.add_argument("--square", help="use square logo",
+    parser.add_argument("--rectangular", help="use rectangular logo",
                         action="store_true")
     parser.add_argument("-o", "--output", type=str, help="output file name")
     parser.add_argument("--logo", type=str,
@@ -42,7 +42,7 @@ def main():
     logo = args.logo
 
     if logo == default_logo:
-        if args.square:
+        if not args.rectangular:
             logo = insert_suffix(logo, "-square")
 
         if args.byline:
