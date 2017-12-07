@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--byline", help="byline logo", action="store_true")
     parser.add_argument(
         "--monochrome", help="one color logo", action="store_true")
-    parser.add_argument("--square", help="use square logo",
+    parser.add_argument("--rectangular", help="use rectangular logo",
                         action="store_true")
     parser.add_argument("-o", "--output", type=str, help="output file name")
     parser.add_argument("--logo", type=str,
@@ -35,6 +35,8 @@ def main():
                         help="logo position (LR, LL, UR, UL)", default="LR")
     parser.add_argument("--opacity", type=float,
                         help="logo opacity (0.0 - 1.0)", default=1.0)
+    parser.add_argument("--padding", type=int, help="logo's distance from picture's edge",
+                        default=50)
     parser.add_argument("--filter", type=str,
                         help="logo filter (positive, negative, dark, white)", default="positive")
     args = parser.parse_args()
@@ -42,7 +44,7 @@ def main():
     logo = args.logo
 
     if logo == default_logo:
-        if args.square:
+        if not args.rectangular:
             logo = insert_suffix(logo, "-square")
 
         if args.byline:
@@ -63,4 +65,4 @@ def main():
     for filename in glob.glob(os.path.expandvars(os.path.expanduser(args.filename))):
         print(insert_suffix(filename, args.suffix))
         sealer.add_logos(filename, args.output if args.output else insert_suffix(
-            filename, args.suffix), logos_dict, args.opacity, args.filter)
+            filename, args.suffix), logos_dict, args.opacity, args.filter, args.padding)

@@ -13,7 +13,7 @@ class Seal:
     def greyscale(self, color):
         return [int(color[0] * 299 / 1000 + color[1] * 587 / 1000 + color[2] * 114 / 1000) for i in range(4)]
 
-    def add_logos(self, main_fname, out_fname, logos_dict, opacity=1.0, filter="positive"):
+    def add_logos(self, main_fname, out_fname, logos_dict, opacity=1.0, filter="positive", padding=50):
         """
         Add logos to an image.
         Logos are expected to be in PNG format to support transparency masks.
@@ -29,7 +29,6 @@ class Seal:
 
         main = Image.open(main_fname)
         main_w, main_h = main.size
-        padding = 50
 
         for pos, logo_fname in logos_dict.items():
             logo = Image.open(logo_fname)
