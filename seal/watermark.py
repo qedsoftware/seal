@@ -4,6 +4,7 @@ import os
 import argparse
 import glob
 import pkg_resources
+import sys
 
 
 def insert_suffix(path, suffix):
@@ -64,8 +65,12 @@ def main():
 
     sealer = seal.seal.Seal()
 
-    for filename in glob.glob(os.path.expandvars(os.path.expanduser(args.filename))):
+    files = glob.glob(os.path.expandvars(os.path.expanduser(args.filename)))
+    if not files:
+        print("seal:", "failed to match any file to pattern", args.filename, file=sys.stderr)
+        sys.exit(1)
+    for filename in files:
         output_filename = args.output if args.output else args.prefix + insert_suffix(filename, args.suffix)
-        print(output_filename)
+        print(output_filename, file=sys.stderr)
         sealer.add_logos(filename, output_filename,
                          logos_dict, args.opacity, args.filter, args.padding)
