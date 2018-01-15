@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "qed-seal",
-    version = "0.2",
+    version = "0.3",
     description = "image watermarking tool",
     url = "https://github.com/qed-software/seal",
     author = "QED",
