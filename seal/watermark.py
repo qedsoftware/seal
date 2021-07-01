@@ -27,8 +27,7 @@ def main():
     parser.add_argument("-i", "--inverse", help="invert logo",
                         action="store_true")
     parser.add_argument("--byline", help="byline logo", action="store_true")
-    parser.add_argument(
-        "--monochrome", help="one color logo", action="store_true")
+    parser.add_argument( "--monochrome", help="one color logo", action="store_true")
     parser.add_argument("--rectangular", help="use rectangular logo",
                         action="store_true")
     parser.add_argument("-o", "--output", type=str, help="output file name")
@@ -42,6 +41,8 @@ def main():
                         default=50)
     parser.add_argument("--filter", type=str,
                         help="logo filter (positive, negative, dark, white)", default="positive")
+    parser.add_argument("--ratio", type=float,
+                        help="ratio of logo height to target height (0.0 - 1.0)", default=0.15)
     args = parser.parse_args()
 
     logo = args.logo
@@ -73,4 +74,4 @@ def main():
         output_filename = args.output if args.output else args.prefix + insert_suffix(filename, args.suffix)
         print(output_filename, file=sys.stderr)
         sealer.add_logos(filename, output_filename,
-                         logos_dict, args.opacity, args.filter, args.padding)
+                         logos_dict, args.opacity, args.filter, args.padding, args.ratio)
